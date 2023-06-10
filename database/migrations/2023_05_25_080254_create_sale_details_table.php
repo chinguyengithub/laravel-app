@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sale_details', function (Blueprint $table) {
-            $table->increments('sld_id');
+            $table->increments('sdt_id');
             $table->Integer('sdt_quantity');
             $table->float('sdt_prdprice');
             $table->float('sdt_totalprice');

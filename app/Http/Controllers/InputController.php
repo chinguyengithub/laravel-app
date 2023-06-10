@@ -8,8 +8,7 @@ use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-
+use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
 
 class InputController extends Controller
 {
@@ -99,8 +98,14 @@ class InputController extends Controller
     {
         $ip = Input::find($id);
         $supplier = Supplier::all();
-
-        return view('inputs.edit', compact('ip', 'supplier'));
+        $prd = Product::all();
+        $inputdetail = DB::table('input_details')
+            ->join('inputs', 'inputs.ip_id', '=', 'input_details.ip_id')
+            ->join('products', 'products.prd_id', '=', 'input_details.prd_id')
+            ->where('input_details.ip_id', 'LIKE', '%' . $id . '%')
+            ->orderBy('input_details.dt_id', 'asc')
+            ->paginate(5);
+        return view('inputs.edit', compact('ip', 'supplier', 'prd', 'inputdetail'));
     }
 
     /**
@@ -144,7 +149,7 @@ class InputController extends Controller
         $ip->delete();
         return redirect('/phieu-nhap-hang')->with('success', 'Đã xóa thành công!');
     }
-    public function storeInputDetail(Request $request)
+    public function storeInputDetail(Request $request, $id)
     {
         $request->validate([
             'dt_quatity' => 'required',
@@ -157,7 +162,9 @@ class InputController extends Controller
             'prd_id' => 'required',
             'ip_id' => 'required',
         ]);
+
         $dt = new Input_detail();
+        $dt->ip_id = $id;
         $dt->dt_quatity = $request->dt_quatity;
         $dt->dt_unit = $request->dt_unit;
         $dt->dt_lotnumber = $request->dt_lotnumber;
@@ -168,20 +175,27 @@ class InputController extends Controller
         $dt->prd_id = $request->prd_id;
         $dt->ip_id = $request->ip_id;
         $dt->save();
-        return redirect('/phieu-nhap-hang/create');
+        return redirect('/phieu-nhap-hang/' . $id . '/edit')->with('success', 'Thêm phiếu nhập hàng thành công!!!');
+    }
+    public function destroyInputDetail($ip, $id)
+    {
+        $dt = Input_detail::find($id);
+        $dt->delete();
+        return redirect('/phieu-nhap-hang/' . $ip . '/edit')->with('success', 'Đã xóa thành công!');
     }
     //search
     public function search(Request $request){
-        $inputDate = $request->input('inputDate');
-        $createDate = $request->input('createDate');
+        $fromDate = $request->input('fromDate');
+        $toDate = $request->input('toDate');
 
         $data = DB::table('inputs')->select()
             ->join('suppliers', 'suppliers.sp_id', '=', 'inputs.sp_id')
             ->orderBy('inputs.ip_id', 'asc')
-            ->where('ip_dateinput','=',$inputDate)
-            ->where('ip_datecreate','=',$createDate)
+            ->where('ip_dateinput','>=',$fromDate)
+            ->where('ip_dateinput','<=',$toDate)
             ->paginate(5);
         
-        return view('inputs.search', compact('data','inputDate','createDate'));
+        return view('inputs.search', compact('data','fromDate','toDate'));
     }
+
 }

@@ -15,9 +15,13 @@ class Inventory extends Model
     {
         return $this->belongsTo(Product::class);
     }
-    public function sale()
+    public function sale_detail()
     {
-        return $this->belongsTo(Sale::class);
+        return $this->belongsTo(Sale_detail::class);
+    }
+    public function input_detail()
+    {
+        return $this->belongsTo(Input_detail::class);
     }
     use HasFactory;
 }

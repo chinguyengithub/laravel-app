@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('input_details', function (Blueprint $table) {
-            $table->integer('dt_id')->primary();
+            $table->increments('dt_id');
             $table->Integer('dt_quatity');
             $table->string('dt_unit');
             $table->string('dt_lotnumber');

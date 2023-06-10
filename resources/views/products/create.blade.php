@@ -14,6 +14,7 @@
                         {{ Session::get('success') }}
                     </div>
                 @endif --}}
+
                 <div class="form-group">
                     <label for="cc-payment" class="control-label mb-1">Tên sản phẩm</label>
                     <input id="cc-pament" name="prd_name" type="text" class="form-control" aria-required="true"

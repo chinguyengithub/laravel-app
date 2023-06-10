@@ -68,9 +68,6 @@
                                             data-toggle="tooltip" data-placement="top" title="Sửa">
                                             <i class="zmdi zmdi-edit"></i>
                                         </a>
-
-
-
                                         @csrf
                                         @method('DELETE')
                                         <button class="item" data-toggle="tooltip" data-placement="top" title="Xóa"

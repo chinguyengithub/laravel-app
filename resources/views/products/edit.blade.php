@@ -30,7 +30,7 @@
                     <label for="select" class=" form-control-label">Đơn vị tính</label>
                     <div class=" form-control-label">
                         <select name="prd_unit" id="select" class="form-control">
-                            <option value="">{{ $prd->prd_unit }}</option>
+                            <option value="{{ $prd->prd_unit }}">{{ $prd->prd_unit }}</option>
                             <option value="Kg">Kg</option>
                             <option value="Bộ">Bộ</option>
                             <option value="Lốc">Lốc</option>

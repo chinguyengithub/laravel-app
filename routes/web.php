@@ -57,7 +57,10 @@ Route::middleware(['isLoggedIn'])->group(function () {
     Route::resource('/phieu-nhap-hang', InputController::class);
     Route::any('/phieu-nhap-hang/search', [InputController::class, 'search'])->name('search');
     //Chi tiet phieu nhap hang
-    Route::post('/phieu-nhap-hang/create', [InputController::class, 'storeInputDetail']);
+    Route::post('/phieu-nhap-hang/{ip_id}/create', [InputController::class, 'storeInputDetail']);
+    Route::delete('/phieu-nhap-hang/{ip_id}/{dt_id}/delete', [InputController::class, 'destroyInputDetail']);
+
+    //Xuat excel
     Route::get('/salereport', [ReportController::class, 'showrpsales']);
     Route::get('/rp_inventory', [ReportController::class, 'showrpinventory']);
     Route::get('/saleReportExport', [ReportController::class, 'export'])->name('saleReportExport');

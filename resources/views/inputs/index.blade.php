@@ -7,13 +7,13 @@
     <form action="{{ route('search') }}" method="POST">
         @csrf
         <div class="form-group row">
-            <label for="date" class="col-form-label "> Ngày nhập</label>
+            <label for="date" class="col-form-label "> Tìm từ ngày</label>
         <div class="col-sm-2">
-            <input type="date" class="form-control input-sm" value="{{ request()->input('inputDate') ? $inputDate : '' }}" id="inputDate" name="inputDate" required/>
+            <input type="date" class="form-control input-sm" value="{{ request()->input('fromDate') ? $fromDate : '' }}" id="fromDate" name="fromDate" required/>
         </div>
-        <label for="date" class="col-form-label "> Ngày tạo</label>
+        <label for="date" class="col-form-label "> Đến ngày</label>
         <div class="col-sm-2">
-            <input type="date" class="form-control input-sm" value="{{ request()->input('createDate') ? $createDate : '' }}" id="createDate" name="createDate" required/>
+            <input type="date" class="form-control input-sm" value="{{ request()->input('toDate') ? $toDate : '' }}" id="toDate" name="toDate" required/>
         </div>
         <div class="col-sm-5">
             <button type="submit" class="btn" title="search" name="search">

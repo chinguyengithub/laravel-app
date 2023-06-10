@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->increments('iv_id');
-            $table->Integer('iv_sold');
-            $table->Integer('iv_upd');
-            $table->Integer('sld_id')->unsigned();
-            $table->foreign('sld_id')->references('sld_id')->on('sale_details')->onDelete('cascade');
             $table->Integer('prd_id')->unsigned();
             $table->foreign('prd_id')->references('prd_id')->on('products')->onDelete('cascade');
+            $table->Integer('dt_id')->unsigned();
+            $table->foreign('dt_id')->references('dt_id')->on('input_details')->onDelete('cascade');
+            $table->Integer('sdt_id')->unsigned();
+            $table->foreign('sdt_id')->references('sdt_id')->on('sale_details')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -83,14 +83,14 @@
                         @foreach ($inputdetail as $dt)
                             <tr>
                                 <td>{{ $dt->dt_id }}</td>
-                                <td>{{ $dt->prd_id }}</td>
+                                <td>{{ $dt->prd_name }}</td>
                                 <td>{{ $dt->dt_quatity }}</td>
                                 <td>{{ $dt->dt_unit }}</td>
                                 <td>{{ $dt->dt_lotnumber }}</td>
                                 <td>{{ $dt->dt_expried }}</td>
-                                <td>{{ $dt->dt_inputprice }}</td>
-                                <td>{{ $dt->dt_vat }}</td>
-                                <td>{{ $dt->dt_saleprice }}</td>
+                                <td>{{ number_format($dt->dt_inputprice) . ' VND' }}</td>
+                                <td>{{ number_format($dt->dt_vat) . ' VND' }}</td>
+                                <td>{{ number_format($dt->dt_saleprice) . ' VND' }}</td>
                                 <td>Action</td>
                             </tr>
                         @endforeach
